@@ -6,7 +6,7 @@ const router = express.Router();
 router.post('/auction', async (req, res) => {
   try {
 
-    if (!redis.isOpen) await redis.connect();
+    // if (!redis.isOpen) await redis.connect();
 
     const { auctionId, userId, amount } = req.body;
     const auction = await Auction.findByPk(auctionId);
@@ -21,6 +21,10 @@ router.post('/auction', async (req, res) => {
     const bid = await Bid.create({ auctionId, userId, amount });
     await redis.set(`auction:${auctionId}:highestBid`, amount.toString());
     await redis.set(`auction:${auctionId}:highestBidUser`, userId.toString());
+
+
+    console.log(redis)
+
 
     // Notify via Socket.IO
     req.app.get('io').to(`auction_${auctionId}`).emit('newBid', { amount, userId });
