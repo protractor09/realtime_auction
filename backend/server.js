@@ -42,7 +42,7 @@ io.on('connection', (socket) => {
   });
 });
 
-app.get('/test', (req, res) => {
+app.get('/', (req, res) => {
   res.send(`
     <!DOCTYPE html>
     <html>

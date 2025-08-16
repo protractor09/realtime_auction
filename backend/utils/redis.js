@@ -1,14 +1,11 @@
-const {createClient} = require('redis')
+const { Redis } = require('@upstash/redis')
 
-const client = createClient({
-    username: 'default',
-    password: 'HpKaWExXH0I4XL2YJ7Bfws99kfwqJftf',
-    socket: {
-        host: 'redis-19102.crce179.ap-south-1-1.ec2.redns.redis-cloud.com',
-        port: 19102
-    }
-});
+const client = new Redis({
+  url: 'https://loving-eel-47996.upstash.io',
+  token: 'Abt8AAIncDFlMDU4ODVkYTgzNDg0NWZmODJjM2UzOWU4MjMzNDM1YXAxNDc5OTY',
+})
 
+module.exports = { client };
 
 client.on('error', err => console.log('Redis Client Error', err));
 
